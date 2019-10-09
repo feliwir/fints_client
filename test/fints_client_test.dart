@@ -1,4 +1,3 @@
-import 'package:fints_client/fints_connection.dart';
 import 'package:test/test.dart';
 
 import 'package:fints_client/fints_client.dart';
