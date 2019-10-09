@@ -1,5 +1,7 @@
 library fints_client;
 
+import 'package:fints_client/fints_connection.dart';
+
 export 'src/segments/segment.dart';
 export 'src/segments/hksyn.dart';
 
@@ -12,10 +14,8 @@ class Client {
   Client(this._productId, this._version);
   Client.unversioned();
 
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-
-  bool authenticate() {
+  // Perform a FinTS synchronization
+  bool synchronize(Connection conn) {
     return false;
   }
 }
