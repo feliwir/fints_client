@@ -6,7 +6,7 @@ dart:
 
 dart_task:
   - test: --platform vm,firefox
-  - dartanalyzer: --fatal-infos --fatal-warnings .
+  - dartanalyzer: --fatal-warnings .
 
 matrix:
   include:
