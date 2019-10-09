@@ -1,5 +1,3 @@
-library fints_client;
-
 import 'package:fints_client/fints_connection.dart';
 
 export 'src/segments/segment.dart';
