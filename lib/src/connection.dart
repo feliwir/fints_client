@@ -1,13 +1,18 @@
 import 'package:validators/validators.dart';
 import 'package:iban/iban.dart';
 
-class Connection {
-  String _iban;
-  String _url;
+import 'version.dart';
 
-  Connection(this._iban, this._url);
+class Connection {
+  String iban;
+  String url;
+  String get blz => iban.substring(4, 12);
+  String get account => iban.substring(12, 22);
+  Version version = Version.FINTS3_0;
+
+  Connection(this.iban, this.url);
 
   bool IsValid() {
-    return isURL(_url) && isValid(_iban);
+    return isURL(url) && isValid(iban);
   }
 }
