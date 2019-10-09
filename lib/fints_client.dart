@@ -1,7 +1,6 @@
-import 'package:fints_client/fints_connection.dart';
-
 export 'src/segments/segment.dart';
 export 'src/segments/hksyn.dart';
+export 'src/connection.dart';
 
 /// A FinTS Client.
 class Client {

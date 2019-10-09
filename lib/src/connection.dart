@@ -1,5 +1,3 @@
-library fints_client;
-
 import 'package:validators/validators.dart';
 import 'package:iban/iban.dart';
 
