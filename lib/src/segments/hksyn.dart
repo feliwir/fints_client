@@ -15,7 +15,7 @@ class HksynSegment extends SegmentBase {
   String build(Client client, Connection conn) {
     String result = HkidnSegment().build(client, conn) +
         HkvvbSegment().build(client, conn) +
-        "${name()}:5:3:0'";
+        "${name()}:5:3+0'";
 
     return result;
   }

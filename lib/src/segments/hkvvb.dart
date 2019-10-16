@@ -11,6 +11,6 @@ class HkvvbSegment extends SegmentBase {
 
   @override
   String build(Client client, Connection conn) {
-    return "${name()}:4:2+0+0+0+${client.productId}+${client.productVersion}'";
+    return "${name()}:4:3+0+0+0+${client.productId}+${client.productVersion}'";
   }
 }

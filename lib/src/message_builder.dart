@@ -23,10 +23,10 @@ class MessageBuilder {
     const int HEAD_LEN = 29;
     const int TRAIL_LEN = 11;
 
-    var secRef = Random().nextInt(100000);
+    var secRef = (Random().nextInt(1 << 32) * 999999 + 1000000);
 
     var encHead = HnvskSegment().build(_client, conn);
-    var sigHead = HnshkSegment().build(_client, conn);
+    var sigHead = HnshkSegment(secRef).build(_client, conn);
     var encMsg = segment.build(_client, conn);
     var sigTrail = HnshaSegment(secRef, segNum).build(_client, conn);
 

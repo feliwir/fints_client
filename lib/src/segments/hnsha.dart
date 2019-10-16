@@ -16,6 +16,6 @@ class HnshaSegment extends SegmentBase {
 
   @override
   String build(Client client, Connection conn) {
-    return "${name()}:${_segNum + 1}:1+$_secRef++${conn.pin}'";
+    return "${name()}:${_segNum + 1}:2+$_secRef++${conn.pin}'";
   }
 }
