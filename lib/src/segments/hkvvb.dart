@@ -2,15 +2,15 @@ import 'segment.dart';
 import '../connection.dart';
 import '../../fints_client.dart';
 
-/// The HKIDN Segment, used for identification
-class HkidnSegment extends SegmentBase {
+/// The HKVVB Segment, used for identification
+class HkvvbSegment extends SegmentBase {
   @override
   String name() {
-    return "HKIDN";
+    return "HKVVB";
   }
 
   @override
   String build(Client client, Connection conn) {
-    return "${name()}:3:2+280:${conn.blz}+${conn.userId}+0+1'";
+    return "${name()}:4:2+0+0+0+${client.productId}+${client.productVersion}'";
   }
 }

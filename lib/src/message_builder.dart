@@ -28,7 +28,7 @@ class MessageBuilder {
     var encHead = HnvskSegment().build(_client, conn);
     var sigHead = HnshkSegment().build(_client, conn);
     var encMsg = segment.build(_client, conn);
-    var sigTrail = HnshaSegment(secRef,segNum).build(_client, conn);
+    var sigTrail = HnshaSegment(secRef, segNum).build(_client, conn);
 
     var segments = sigHead + encMsg + sigTrail;
     var payload = encryptSegments(segments);
@@ -41,7 +41,7 @@ class MessageBuilder {
 
     var paddedLength = msgLen.toString().padLeft(12, '0');
     var msgHead = HnhbkSegment(paddedLength, dialogId).build(_client, conn);
-    var msgEnd = HnhbsSegment(segNum,msgNum).build(_client, conn);
+    var msgEnd = HnhbsSegment(segNum, msgNum).build(_client, conn);
 
     return msgHead + encHead + payload + msgEnd;
   }

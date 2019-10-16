@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'segment.dart';
 import '../connection.dart';
 import '../country_code.dart';
-import '../encryption.dart';
 import '../../fints_client.dart';
 
 import 'dart:math';
@@ -21,7 +20,7 @@ class HnshkSegment extends SegmentBase {
   String build(Client client, Connection conn) {
     var now = new DateTime.now();
     var date = DateFormat('yyyyMMdd').format(now);
-    var time = now.second;
+    var time = now.second * now.minute * 60 + now.hour * 60 * 60;
     var result = "";
 
     var rng = new Random();

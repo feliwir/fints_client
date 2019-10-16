@@ -18,7 +18,7 @@ class HnvskSegment extends SegmentBase {
   String build(Client client, Connection conn) {
     var now = new DateTime.now();
     var date = DateFormat('yyyyMMdd').format(now);
-    var time = now.second;
+    var time = now.second * now.minute * 60 + now.hour * 60 * 60;
     var result = "";
 
     if (conn.version == Version.FINTS3_0) {

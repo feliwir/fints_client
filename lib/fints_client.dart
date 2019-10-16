@@ -2,23 +2,20 @@ export 'src/segments/segment.dart';
 export 'src/segments/hksyn.dart';
 export 'src/connection.dart';
 
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:fints_client/src/message_builder.dart';
 import 'package:fints_client/src/segments/hksyn.dart';
 
 import 'src/connection.dart';
-import 'dart:io';
 
 /// A FinTS Client.
 class Client {
   String _errorMsg;
-  var _productId = "9FA6681DEC0CF3046BFC2F8A6";
-  var _version = "1.0.0";
+  var productId = "fints_client";//"9FA6681DEC0CF3046BFC2F8A6";
+  var productVersion = "1.0.0";
   MessageBuilder _builder;
 
-  Client(this._productId, this._version) {
+  Client(this.productId, this.productVersion) {
     _builder = new MessageBuilder(this);
   }
 
