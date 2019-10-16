@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:fints_client/src/segments/hnhbs.dart';
+import 'package:fints_client/src/segments/hnsha.dart';
 import 'package:fints_client/src/segments/hnshk.dart';
 import 'package:fints_client/src/segments/hnvsk.dart';
 
@@ -15,14 +19,16 @@ class MessageBuilder {
   }
 
   String build<T extends SegmentBase>(
-      Connection conn, T segment, int msgNum, int dialogId) {
+      Connection conn, T segment, int msgNum, int segNum, int dialogId) {
     const int HEAD_LEN = 29;
     const int TRAIL_LEN = 11;
+
+    var secRef = Random().nextInt(100000);
 
     var encHead = HnvskSegment().build(_client, conn);
     var sigHead = HnshkSegment().build(_client, conn);
     var encMsg = segment.build(_client, conn);
-    var sigTrail = "";
+    var sigTrail = HnshaSegment(secRef,segNum).build(_client, conn);
 
     var segments = sigHead + encMsg + sigTrail;
     var payload = encryptSegments(segments);
@@ -34,7 +40,9 @@ class MessageBuilder {
         encHead.length;
 
     var paddedLength = msgLen.toString().padLeft(12, '0');
-    var msgHead = HnhbkSegment(paddedLength, 0).build(_client, conn);
-    return msgHead + encHead + payload;
+    var msgHead = HnhbkSegment(paddedLength, dialogId).build(_client, conn);
+    var msgEnd = HnhbsSegment(segNum,msgNum).build(_client, conn);
+
+    return msgHead + encHead + payload + msgEnd;
   }
 }

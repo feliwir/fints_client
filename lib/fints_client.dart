@@ -33,7 +33,7 @@ class Client {
 
     http.post(conn.url, body: msg, headers: {
       'Content-type': 'application/octet-stream'
-    }).then((http.Response r) => print(r.bodyBytes));
+    }).then((http.Response r) => print(r.body));
 
     return true;
   }
@@ -42,7 +42,7 @@ class Client {
   bool synchronize(Connection conn) {
     if (!conn.IsValid()) return false;
 
-    var msg = _builder.build(conn, HksynSegment(), 1, 0);
+    var msg = _builder.build(conn, HksynSegment(), 1, 5, 0);
     send(conn, msg);
     return false;
   }

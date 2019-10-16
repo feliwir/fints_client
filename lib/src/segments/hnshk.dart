@@ -20,7 +20,7 @@ class HnshkSegment extends SegmentBase {
   @override
   String build(Client client, Connection conn) {
     var now = new DateTime.now();
-    var date = DateFormat('yyyy-MM-dd').format(now);
+    var date = DateFormat('yyyyMMdd').format(now);
     var time = now.second;
     var result = "";
 
@@ -31,7 +31,7 @@ class HnshkSegment extends SegmentBase {
       result = "HNSHK:2:4+PIN:1+${Signature.SECFUNC_SIG_PT_1STEP}+$secRef" +
           "+1+1+1::0+1+1:$date:$time" +
           "+1+1::0+1:$date:$time" +
-          "+1:999:1+6:10:16+${CountryCode.GERMANY}:${conn.blz}:${conn.account}:S:0:0'";
+          "+1:999:1+6:10:16+${CountryCode.GERMANY}:${conn.blz}:${conn.userId}:S:0:0'";
     }
 
     return result;
