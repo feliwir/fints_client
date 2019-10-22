@@ -13,9 +13,13 @@ class HnshkSegment extends SegmentBase {
 
   HnshkSegment(this._secRef);
 
-  @override
-  String name() {
+  static String name() {
     return "HNSHK";
+  }
+
+  @override
+  SegmentKind kind() {
+    return SegmentKind.Request;
   }
 
   @override

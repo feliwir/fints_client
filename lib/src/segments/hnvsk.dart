@@ -9,9 +9,13 @@ import '../../fints_client.dart';
 
 /// The HNVSK Segment, used for encryption (Verschlüsselungskopf)
 class HnvskSegment extends SegmentBase {
-  @override
-  String name() {
+  static String name() {
     return "HNVSK";
+  }
+
+  @override
+  SegmentKind kind() {
+    return SegmentKind.Request;
   }
 
   @override

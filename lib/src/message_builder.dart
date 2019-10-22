@@ -18,8 +18,8 @@ class MessageBuilder {
     return "HNVSD:999:1+@${segments.length}@$segments'";
   }
 
-  String build<T extends SegmentBase>(
-      Connection conn, T segment, int msgNum, int segNum, int dialogId) {
+  String buildFromContent(
+      Connection conn, String content, int msgNum, int segNum, int dialogId) {
     const int HEAD_LEN = 29;
     const int TRAIL_LEN = 11;
 
@@ -27,7 +27,7 @@ class MessageBuilder {
 
     var encHead = HnvskSegment().build(_client, conn);
     var sigHead = HnshkSegment(secRef).build(_client, conn);
-    var encMsg = segment.build(_client, conn);
+    var encMsg = content;
     var sigTrail = HnshaSegment(secRef, segNum).build(_client, conn);
 
     var segments = sigHead + encMsg + sigTrail;
@@ -44,5 +44,11 @@ class MessageBuilder {
     var msgEnd = HnhbsSegment(segNum, msgNum).build(_client, conn);
 
     return msgHead + encHead + payload + msgEnd;
+  }
+
+  String buildFromSegment<T extends SegmentBase>(
+      Connection conn, T segment, int msgNum, int segNum, int dialogId) {
+    return buildFromContent(
+        conn, segment.build(_client, conn), msgNum, segNum, dialogId);
   }
 }

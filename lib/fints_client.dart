@@ -4,11 +4,15 @@ export 'src/connection.dart';
 
 import 'dart:convert';
 
+import 'package:fints_client/src/segments/hkidn.dart';
+import 'package:fints_client/src/segments/hkvvb.dart';
 import 'package:http/http.dart' as http;
+import 'package:cryptoutils/cryptoutils.dart';
 import 'package:fints_client/src/message_builder.dart';
 import 'package:fints_client/src/segments/hksyn.dart';
 
 import 'src/connection.dart';
+import 'src/response.dart';
 
 /// A FinTS Client.
 class Client {
@@ -25,13 +29,14 @@ class Client {
   }
 
   void handleResponse(http.Response r) {
-    print(r.body);
-    var encoded = r.body.replaceAll("\n", "").replaceAll("\r", "");
-    print(encoded.contains("\t"));
-    print(utf8.decode(base64.decode(encoded)));
+    var codec = new Base64Codec();
+
+    var decoded = latin1.decode(codec.decode(r.body));
+    var response = new Response(decoded);
+    print(response.warnings);
   }
 
-  bool send(Connection conn, String msg) {
+  Future<bool> send(Connection conn, String msg) async {
     if (!conn.IsValid()) return false;
 
     print(msg);
@@ -47,8 +52,18 @@ class Client {
   bool synchronize(Connection conn) {
     if (!conn.IsValid()) return false;
 
-    var msg = _builder.build(conn, HksynSegment(), 1, 5, 0);
+    var msg = _builder.buildFromSegment(conn, HksynSegment(), 1, 5, 0);
     send(conn, msg);
-    return false;
+    return true;
+  }
+
+  bool balance(Connection conn) {
+    if (!synchronize(conn)) return false;
+
+    var content =
+        HkidnSegment().build(this, conn) + HkvvbSegment().build(this, conn);
+    var msg = _builder.buildFromContent(conn, content, 1, 4, 0);
+    send(conn, msg);
+    return true;
   }
 }

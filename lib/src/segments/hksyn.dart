@@ -7,7 +7,11 @@ import '../../fints_client.dart';
 /// The HKSYN Segment, used for Synchronization
 class HksynSegment extends SegmentBase {
   @override
-  String name() {
+  SegmentKind kind() {
+    return SegmentKind.Request;
+  }
+
+  static String name() {
     return "HKSYN";
   }
 

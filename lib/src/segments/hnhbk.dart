@@ -4,14 +4,18 @@ import '../../fints_client.dart';
 
 /// The HKIDN Segment, used for identification
 class HnhbkSegment extends SegmentBase {
+  @override
+  SegmentKind kind() {
+    return SegmentKind.Request;
+  }
+
   String _paddedLen;
   int _dialogId;
   int _msgNum = 1;
 
   HnhbkSegment(this._paddedLen, this._dialogId);
 
-  @override
-  String name() {
+  static String name() {
     return "HNHBK";
   }
 

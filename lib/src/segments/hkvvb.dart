@@ -5,7 +5,11 @@ import '../../fints_client.dart';
 /// The HKVVB Segment, used for identification
 class HkvvbSegment extends SegmentBase {
   @override
-  String name() {
+  SegmentKind kind() {
+    return SegmentKind.Request;
+  }
+
+  static String name() {
     return "HKVVB";
   }
 

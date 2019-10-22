@@ -9,9 +9,13 @@ class HnhbsSegment extends SegmentBase {
 
   HnhbsSegment(this._segNum, this._msgNum);
 
-  @override
-  String name() {
+  static String name() {
     return "HNHBS";
+  }
+
+  @override
+  SegmentKind kind() {
+    return SegmentKind.Request;
   }
 
   @override

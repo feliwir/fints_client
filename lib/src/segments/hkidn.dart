@@ -5,7 +5,11 @@ import '../../fints_client.dart';
 /// The HKIDN Segment, used for identification
 class HkidnSegment extends SegmentBase {
   @override
-  String name() {
+  SegmentKind kind() {
+    return SegmentKind.Request;
+  }
+
+  static String name() {
     return "HKIDN";
   }
 
