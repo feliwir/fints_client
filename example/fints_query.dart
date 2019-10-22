@@ -1,11 +1,18 @@
+import 'dart:io';
+
 import 'package:fints_client/fints_client.dart';
 
 void main() {
+  print("Please enter your IBAN:");
+  var iban = stdin.readLineSync();
+  print("Please enter your UserID:");
+  var userid = stdin.readLineSync();
+  print("Please enter your PIN:");
+  var pin = stdin.readLineSync();
+  print("Please enter your FinTS URL:");
+  var url = stdin.readLineSync();
+
   final client = Client.unversioned();
-  var conn = Connection(
-      "DE82672500201001360864",
-      "https://banking-bw4.s-fints-pt-bw.de/fints30",
-      "6821376915705585",
-      "***REMOVED***");
+  var conn = Connection(iban, url, userid, pin);
   client.synchronize(conn);
 }

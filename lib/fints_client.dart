@@ -33,7 +33,9 @@ class Client {
 
     var decoded = latin1.decode(codec.decode(r.body));
     var response = new Response(decoded);
-    print(response.warnings);
+    response.responses.forEach((r) {
+      print("${r.name}:${r.contents.join(',')}");
+    });
   }
 
   Future<bool> send(Connection conn, String msg) async {

@@ -10,16 +10,16 @@ class ResponseSegment {
 }
 
 class Response {
-  List<ResponseSegment> _responses;
+  List<ResponseSegment> responses;
   Iterable<ResponseSegment> get warnings =>
-      _responses.where((rs) => _isStatus(rs));
-  ResponseSegment get _bpaResponse => _responses.firstWhere((rs) => _isBpa(rs));
+      responses.where((rs) => _isStatus(rs));
+  ResponseSegment get _bpaResponse => responses.firstWhere((rs) => _isBpa(rs));
   HibpaSegment get bpa => new HibpaSegment(_bpaResponse.contents);
-  ResponseSegment get _synResponse => _responses.firstWhere((rs) => _isSyn(rs));
+  ResponseSegment get _synResponse => responses.firstWhere((rs) => _isSyn(rs));
   HisynSegment get syn => new HisynSegment(_synResponse.contents);
 
   Response(String content) {
-    _responses = new List();
+    responses = new List();
 
     var segments = content.split('\'');
     segments.removeWhere((value) => value.isEmpty);
@@ -28,7 +28,7 @@ class Response {
       var segName = parts.first;
       var segId = int.parse(parts[1]);
 
-      _responses.add(new ResponseSegment(segName, segId, parts.sublist(2)));
+      responses.add(new ResponseSegment(segName, segId, parts.sublist(2)));
     });
   }
 
