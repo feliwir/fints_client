@@ -3,7 +3,15 @@ import '../../fints_client.dart';
 
 /// The HISYN Segment, used for system id acquisition
 class HisynSegment extends SegmentBase {
-  HisynSegment(List<String> contents) {}
+  String systemid;
+  HisynSegment(List<String> contents) 
+  {
+    contents.forEach((f){
+      print(f);
+    });
+
+    systemid = contents.first;
+  }
 
   @override
   SegmentKind kind() {

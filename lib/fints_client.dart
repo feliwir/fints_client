@@ -33,9 +33,7 @@ class Client {
 
     var decoded = latin1.decode(codec.decode(r.body));
     var response = new Response(decoded);
-    response.responses.forEach((r) {
-      print("${r.name}:${r.contents.join(',')}");
-    });
+    print(response.syn.systemid);
   }
 
   Future<bool> send(Connection conn, String msg) async {
@@ -60,6 +58,17 @@ class Client {
   }
 
   bool balance(Connection conn) {
+    if (!synchronize(conn)) return false;
+
+    var content =
+        HkidnSegment().build(this, conn) + HkvvbSegment().build(this, conn);
+    var msg = _builder.buildFromContent(conn, content, 1, 4, 0);
+    var response = send(conn, msg);
+    
+    return true;
+  }
+
+  bool accounts(Connection conn) {
     if (!synchronize(conn)) return false;
 
     var content =

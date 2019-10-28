@@ -14,5 +14,5 @@ void main() {
 
   final client = Client.unversioned();
   var conn = Connection(iban, url, userid, pin);
-  client.synchronize(conn);
+  client.accounts(conn);
 }
