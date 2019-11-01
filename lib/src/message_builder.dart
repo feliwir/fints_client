@@ -40,7 +40,7 @@ class MessageBuilder {
         encHead.length;
 
     var paddedLength = msgLen.toString().padLeft(12, '0');
-    var msgHead = HnhbkSegment(paddedLength, dialogId).build(_client, conn);
+    var msgHead = HnhbkSegment(dialogId).build(_client, conn);
     var msgEnd = HnhbsSegment(segNum, msgNum).build(_client, conn);
 
     return msgHead + encHead + payload + msgEnd;

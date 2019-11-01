@@ -9,3 +9,8 @@ class Encryption {
 
   static const ENC_KEYTYPE_RSA = 6;
 }
+
+class MessageDirection {
+  static const FROM_CUSTOMER = 1;
+  static const FROM_INSTITUTE = 2;
+}

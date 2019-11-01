@@ -9,11 +9,11 @@ class HnhbkSegment extends SegmentBase {
     return SegmentKind.Request;
   }
 
-  String _paddedLen;
-  int _dialogId;
+  String paddedLen;
+  String _dialogId;
   int _msgNum = 1;
 
-  HnhbkSegment(this._paddedLen, this._dialogId);
+  HnhbkSegment(this._dialogId);
 
   static String name() {
     return "HNHBK";
@@ -21,6 +21,6 @@ class HnhbkSegment extends SegmentBase {
 
   @override
   String build(Client client, Connection conn) {
-    return "${name()}:1:3+$_paddedLen+300+$_dialogId+$_msgNum'";
+    return "${name()}:1:3+$paddedLen+300+$_dialogId+$_msgNum'";
   }
 }

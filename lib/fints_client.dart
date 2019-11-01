@@ -64,7 +64,7 @@ class Client {
         HkidnSegment().build(this, conn) + HkvvbSegment().build(this, conn);
     var msg = _builder.buildFromContent(conn, content, 1, 4, 0);
     var response = send(conn, msg);
-    
+
     return true;
   }
 

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'segment.dart';
 import '../connection.dart';
 import '../country_code.dart';
-import '../encryption.dart';
+import '../formals.dart';
 import '../../fints_client.dart';
 
 /// The HNVSK Segment, used for encryption (Verschlüsselungskopf)
