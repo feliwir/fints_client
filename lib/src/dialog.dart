@@ -29,8 +29,9 @@ class Dialog {
   void send(List<SegmentBase> segments) {
     String content;
 
-    var msg = new CustomerMessage();
+    var msg = new_customer_message();
     segments.forEach((s) => msg.add(s));
+    finish_message(msg);
   }
 
   Message new_customer_message()
