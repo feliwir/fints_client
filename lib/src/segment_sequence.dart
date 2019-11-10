@@ -1,20 +1,13 @@
-
-
 import 'package:fints_client/src/segments/segment.dart';
-import 'package:meta/meta.dart';
 
-class SegmentSequence
-{
-  @protected
+class SegmentSequence {
   List<SegmentBase> segments;
 
-  SegmentSequence()
-  {
+  SegmentSequence() {
     segments = new List();
   }
 
-  void print()
-  {
+  void print() {
     //_segments.forEach((s) => print(s.toString()));
   }
 }

@@ -1,5 +1,4 @@
 import 'package:fints_client/src/message.dart';
-import 'package:fints_client/src/message_builder.dart';
 import 'package:fints_client/src/segments/hkidn.dart';
 import 'package:fints_client/src/segments/hkvvb.dart';
 import 'package:fints_client/src/segments/hnhbk.dart';
@@ -12,11 +11,10 @@ class Dialog {
   String _dialogId;
   bool _open;
   Connection _conn;
-  MessageBuilder _builder;
+  List<int> _messageNumbers;
 
   Dialog(this._client, this._conn) {
     _open = false;
-    _builder = new MessageBuilder(_client);
     _init();
   }
 
@@ -34,14 +32,13 @@ class Dialog {
     finish_message(msg);
   }
 
-  Message new_customer_message()
-  {
+  Message new_customer_message() {
     var msg = new CustomerMessage();
     msg.add(new HnhbkSegment(this._dialogId));
+    return msg;
   }
 
-  void finish_message(Message msg)
-  {
+  void finish_message(Message msg) {
     msg.add(new HnhbsSegment(msg.segments[0].segmentNumber));
   }
 }
