@@ -15,6 +15,9 @@ class Dialog {
 
   Dialog(this._client, this._conn) {
     _open = false;
+    _messageNumbers = new List(2);
+    _messageNumbers[0] = 0;
+    _messageNumbers[1] = 0;
     _init();
   }
 
@@ -25,16 +28,20 @@ class Dialog {
   }
 
   void send(List<SegmentBase> segments) {
-    String content;
-
     var msg = new_customer_message();
     segments.forEach((s) => msg.add(s));
     finish_message(msg);
+
+    assert(msg.segments[0] is HnhbkSegment);
+    //_messages[msg.direction][_messageNumbers[msg.direction]] = msg;
+    _messageNumbers[msg.direction] += 1;
+
+    _client.send(_conn, msg);
   }
 
   Message new_customer_message() {
     var msg = new CustomerMessage();
-    msg.add(new HnhbkSegment(this._dialogId));
+    msg.add(new HnhbkSegment(this._dialogId,this._messageNumbers[msg.direction]));
     return msg;
   }
 

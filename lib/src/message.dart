@@ -1,11 +1,9 @@
 import 'package:fints_client/fints_client.dart';
 import 'package:fints_client/src/formals.dart';
 import 'package:fints_client/src/segment_sequence.dart';
-import 'package:meta/meta.dart';
 
 class Message extends SegmentSequence {
   int _next_segment_number;
-  @protected
   int direction;
 
   Message() {

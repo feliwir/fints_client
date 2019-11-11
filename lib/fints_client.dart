@@ -4,8 +4,7 @@ export 'src/connection.dart';
 
 import 'dart:convert';
 
-import 'package:fints_client/src/segments/hkidn.dart';
-import 'package:fints_client/src/segments/hkvvb.dart';
+import 'package:fints_client/src/message.dart';
 import 'package:http/http.dart' as http;
 import 'package:cryptoutils/cryptoutils.dart';
 import 'package:fints_client/src/message_builder.dart';
@@ -37,12 +36,13 @@ class Client {
     print(response.syn.systemid);
   }
 
-  Future<bool> send(Connection conn, String msg) async {
+  Future<bool> send(Connection conn, Message msg) async {
     if (!conn.IsValid()) return false;
 
-    print(msg);
+    String content = "";
+    msg.segments.forEach((s) => content += s.build(this, conn));
 
-    http.post(conn.url, body: base64.encode(utf8.encode(msg)), headers: {
+    http.post(conn.url, body: base64.encode(utf8.encode(content)), headers: {
       'Content-type': 'application/octet-stream'
     }).then(handleResponse);
 
@@ -62,16 +62,18 @@ class Client {
   bool balance(Connection conn) {
     if (!synchronize(conn)) return false;
 
-    var content =
-        HkidnSegment().build(this, conn) + HkvvbSegment().build(this, conn);
-    var msg = _builder.buildFromContent(conn, content, 1, 4, 0);
-    var response = send(conn, msg);
+    // var content =
+    //     HkidnSegment().build(this, conn) + HkvvbSegment().build(this, conn);
+    // var msg = _builder.buildFromContent(conn, content, 1, 4, 0);
+    // var response = send(conn, msg);
 
     return true;
   }
 
   bool accounts(Connection conn) {
     if (!synchronize(conn)) return false;
+
+    var dialog = _get_dialog(conn);
 
     // var content =
     //     HkidnSegment().build(this, conn) + HkvvbSegment().build(this, conn);

@@ -11,9 +11,9 @@ class HnhbkSegment extends SegmentBase {
 
   String paddedLen;
   String _dialogId;
-  int _msgNum = 1;
+  int _msgNum;
 
-  HnhbkSegment(this._dialogId);
+  HnhbkSegment(this._dialogId, this._msgNum);
 
   static String name() {
     return "HNHBK";
