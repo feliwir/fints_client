@@ -4,9 +4,10 @@ import '../../fints_client.dart';
 
 /// The HNSHA Segment, used for signature
 class HnshaSegment extends SegmentBase {
+  Connection _conn;
   int _secRef;
 
-  HnshaSegment(this._secRef);
+  HnshaSegment(this._conn, this._secRef);
 
   static String name() {
     return "HNSHA";
@@ -18,7 +19,7 @@ class HnshaSegment extends SegmentBase {
   }
 
   @override
-  String build(Client client, Connection conn) {
-    return "${name()}:${segmentNumber + 1}:2+$_secRef++${conn.pin}'";
+  String build() {
+    return "${name()}:${segmentNumber + 1}:2+$_secRef++${_conn.pin}'";
   }
 }

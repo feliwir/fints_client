@@ -18,13 +18,17 @@ class Dialog {
     _messageNumbers = new List(2);
     _messageNumbers[0] = 0;
     _messageNumbers[1] = 0;
+    _dialogId = "0";
     _init();
   }
 
   void _init() {
-    var segments = [HkidnSegment(), HkvvbSegment()];
+    if (!_open) {
+      var segments = [HkidnSegment(_conn), HkvvbSegment(_client)];
 
-    send(segments);
+      send(segments);
+      _open = true;
+    }
   }
 
   void send(List<SegmentBase> segments) {
@@ -41,11 +45,16 @@ class Dialog {
 
   Message new_customer_message() {
     var msg = new CustomerMessage();
-    msg.add(new HnhbkSegment(this._dialogId,this._messageNumbers[msg.direction]));
+    msg.add(
+        new HnhbkSegment(this._dialogId, this._messageNumbers[msg.direction]));
     return msg;
   }
 
   void finish_message(Message msg) {
     msg.add(new HnhbsSegment(msg.segments[0].segmentNumber));
+
+    var hbk = msg.segments[0] as HnhbkSegment;
+    String content = msg.serialize(_client, _conn);
+    hbk.messageLen = content.length;
   }
 }

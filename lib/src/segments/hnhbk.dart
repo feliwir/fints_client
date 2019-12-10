@@ -1,5 +1,4 @@
 import 'segment.dart';
-import '../connection.dart';
 import '../../fints_client.dart';
 
 /// The HKIDN Segment, used for identification
@@ -9,18 +8,20 @@ class HnhbkSegment extends SegmentBase {
     return SegmentKind.Request;
   }
 
-  String paddedLen;
+  int messageLen;
   String _dialogId;
   int _msgNum;
 
-  HnhbkSegment(this._dialogId, this._msgNum);
+  HnhbkSegment(this._dialogId, this._msgNum) {
+    messageLen = 0;
+  }
 
   static String name() {
     return "HNHBK";
   }
 
   @override
-  String build(Client client, Connection conn) {
-    return "${name()}:1:3+$paddedLen+300+$_dialogId+$_msgNum'";
+  String build() {
+    return "${name()}:1:3+$messageLen+300+$_dialogId+$_msgNum'";
   }
 }

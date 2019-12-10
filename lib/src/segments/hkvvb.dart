@@ -1,9 +1,12 @@
 import 'segment.dart';
-import '../connection.dart';
 import '../../fints_client.dart';
 
 /// The HKVVB Segment, used for identification
 class HkvvbSegment extends SegmentBase {
+  Client _client;
+
+  HkvvbSegment(this._client);
+
   @override
   SegmentKind kind() {
     return SegmentKind.Request;
@@ -14,7 +17,7 @@ class HkvvbSegment extends SegmentBase {
   }
 
   @override
-  String build(Client client, Connection conn) {
-    return "${name()}:4:3+0+0+0+${client.productId}+${client.productVersion}'";
+  String build() {
+    return "${name()}:4:3+0+0+0+${_client.productId}+${_client.productVersion}'";
   }
 }

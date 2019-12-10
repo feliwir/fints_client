@@ -7,7 +7,7 @@ class SegmentSequence {
     segments = new List();
   }
 
-  void print() {
-    //_segments.forEach((s) => print(s.toString()));
+  void print_segments() {
+    segments.forEach((s) => print(s.build()));
   }
 }

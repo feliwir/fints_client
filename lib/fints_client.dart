@@ -7,40 +7,34 @@ import 'dart:convert';
 import 'package:fints_client/src/message.dart';
 import 'package:http/http.dart' as http;
 import 'package:cryptoutils/cryptoutils.dart';
-import 'package:fints_client/src/message_builder.dart';
 
 import 'src/connection.dart';
 import 'src/dialog.dart';
-import 'src/response.dart';
 
 /// A FinTS Client.
 class Client {
   var productId = "9FA6681DEC0CF3046BFC2F8A6"; //"9FA6681DEC0CF3046BFC2F8A6";
   var productVersion = "1.0.0";
-  MessageBuilder _builder;
   Dialog _standingDialog;
 
-  Client(this.productId, this.productVersion) {
-    _builder = new MessageBuilder(this);
-  }
+  Client(this.productId, this.productVersion) {}
 
-  Client.unversioned() {
-    _builder = new MessageBuilder(this);
-  }
+  Client.unversioned() {}
 
   void handleResponse(http.Response r) {
     var codec = new Base64Codec();
 
     var decoded = latin1.decode(codec.decode(r.body));
-    var response = new Response(decoded);
-    print(response.syn.systemid);
+    var response = new InstituteMessage(decoded);
+    response.print_segments();
+    //print(response.syn.systemid);
   }
 
   Future<bool> send(Connection conn, Message msg) async {
     if (!conn.IsValid()) return false;
 
-    String content = "";
-    msg.segments.forEach((s) => content += s.build(this, conn));
+    String content = msg.serialize(this, conn);
+    print(content);
 
     http.post(conn.url, body: base64.encode(utf8.encode(content)), headers: {
       'Content-type': 'application/octet-stream'

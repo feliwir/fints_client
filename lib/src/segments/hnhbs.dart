@@ -1,5 +1,4 @@
 import 'segment.dart';
-import '../connection.dart';
 import '../../fints_client.dart';
 
 /// The HNHBS Segment, signaling message end
@@ -18,7 +17,7 @@ class HnhbsSegment extends SegmentBase {
   }
 
   @override
-  String build(Client client, Connection conn) {
+  String build() {
     return "${name()}:${segmentNumber + 2}:1+$_msgNum'";
   }
 }
