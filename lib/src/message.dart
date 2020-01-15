@@ -34,5 +34,6 @@ class CustomerMessage extends Message {
 class InstituteMessage extends Message {
   InstituteMessage(String segments) {
     direction = MessageDirection.FROM_INSTITUTE;
+    parse_segments(segments);
   }
 }

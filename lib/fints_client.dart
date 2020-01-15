@@ -25,6 +25,7 @@ class Client {
     var codec = new Base64Codec();
 
     var decoded = latin1.decode(codec.decode(r.body));
+    print(decoded);
     var response = new InstituteMessage(decoded);
     response.print_segments();
     //print(response.syn.systemid);
@@ -34,7 +35,7 @@ class Client {
     if (!conn.IsValid()) return false;
 
     String content = msg.serialize(this, conn);
-    print(content);
+    //print(content);
 
     http.post(conn.url, body: base64.encode(utf8.encode(content)), headers: {
       'Content-type': 'application/octet-stream'
